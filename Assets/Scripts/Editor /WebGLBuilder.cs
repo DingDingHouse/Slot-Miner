@@ -34,16 +34,15 @@ namespace MyBuilder
             };
 
             // Start the build process
-            BuildReport report = BuildPipeline.BuildPlayer(buildPlayerOptions);
-            BuildSummary summary = report.summary;
-
-            if (summary.result == BuildResult.Succeeded)
+            string buildResult = BuildPipeline.BuildPlayer(buildPlayerOptions).ToString();
+            
+            if (string.IsNullOrEmpty(buildResult))
             {
                 Debug.Log("WebGL Build complete!");
             }
             else
             {
-                Debug.LogError("WebGL Build failed with errors.");
+                Debug.LogError("WebGL Build failed with errors: " + buildResult);
             }
         }
 

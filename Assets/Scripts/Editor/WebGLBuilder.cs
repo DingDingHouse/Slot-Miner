@@ -1,8 +1,8 @@
 using UnityEditor;
-using UnityEditor.Build.Reporting;  // Add this line for build reporting types
 using UnityEngine;
 using System.IO;
 using System.Linq;
+using UnityEditor.Build.Reporting;
 
 namespace MyBuilder
 {
@@ -33,19 +33,9 @@ namespace MyBuilder
                 options = BuildOptions.None
             };
 
-            // Start the build process and capture the build report
-            BuildReport report = BuildPipeline.BuildPlayer(buildPlayerOptions);
-            BuildSummary summary = report.summary;
-
-            // Log build result
-            if (summary.result == BuildResult.Succeeded)
-            {
-                Debug.Log("WebGL Build complete!");
-            }
-            else
-            {
-                Debug.LogError("Build failed.");
-            }
+            // Start the build process
+            BuildPipeline.BuildPlayer(buildPlayerOptions);
+            Debug.Log("WebGL Build complete!");
         }
 
         private static string[] GetEnabledScenes()

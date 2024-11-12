@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using System.IO;
@@ -8,7 +7,7 @@ namespace MyBuilder
 {
     public class WebGLBuilder
     {
-        [MenuItem("Build/Build My WebGL")]
+        [MenuItem("Build/Build MyWebGL")]
         public static void Build()
         {
             // Set up the build path
@@ -17,7 +16,7 @@ namespace MyBuilder
 
             // Gather all enabled scenes
             string[] scenes = GetEnabledScenes();
-
+            
             if (scenes.Length == 0)
             {
                 Debug.LogError("No scenes found in build settings. Please ensure scenes are added to EditorBuildSettings.");
@@ -34,16 +33,8 @@ namespace MyBuilder
             };
 
             // Start the build process
-            string buildResult = BuildPipeline.BuildPlayer(buildPlayerOptions).ToString();
-            
-            if (string.IsNullOrEmpty(buildResult))
-            {
-                Debug.Log("WebGL Build complete!");
-            }
-            else
-            {
-                Debug.LogError("WebGL Build failed with errors: " + buildResult);
-            }
+            BuildPipeline.BuildPlayer(buildPlayerOptions);
+            Debug.Log("WebGL Build complete!");
         }
 
         private static string[] GetEnabledScenes()
@@ -65,4 +56,3 @@ namespace MyBuilder
         }
     }
 }
-#endif
